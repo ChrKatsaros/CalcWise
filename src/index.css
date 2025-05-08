@@ -1,0 +1,162 @@
+/* Βασικό layout - πλήρες ύψος για σωστό sticky footer */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Κεντρικό περιτύλιγμα σελίδας */
+.page-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Κεντρικό περιεχόμενο */
+.main-wrapper {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 3rem;
+  background-color: #000000;
+  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+}
+
+/* Κείμενο δίπλα από το logo */
+.logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  color: rgb(72, 255, 0);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Animation λέξης Solved */
+.solved {
+  display: inline-block;
+  color: rgb(72, 255, 0);
+  transform: translateY(-25px);
+  transition: transform 0.5s ease;
+}
+
+.solved:hover {
+  transform: translateY(0);
+  text-decoration: line-through;
+}
+
+.smart,
+.simple {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Αρχικά: καμία underline */
+.smart::after,
+.simple::after {
+  content: ""; /*δημιουργεί ένα εικονικό στοιχείο (ένα “κουτάκι”) μετά από το περιεχόμενο του .simple, που μπορείς να το διαμορφώσεις με position, width, background-color, κ.λπ. */
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.6s ease;
+}
+
+/* Όταν κάνεις hover: η γραμμή μεγαλώνει */
+.smart:hover::after,
+.simple:hover::after {
+  width: 100%;
+}
+
+
+
+
+
+/* Λογότυπο */
+.logo {
+  height: 150px;
+  width: 150px;
+  padding-right: 1rem;
+  margin-left: 0;
+}
+
+/* Calculator box */
+.calculator-body {
+  height: 500px;
+  width: 300px;
+  border: 3px solid rgb(83, 83, 83);
+  border-radius: 5%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #1b1b1b;
+  box-shadow: 0 8px 20px rgba(200, 210, 200, 0.3);
+}
+
+/* Calculator display */
+.calculator-body h1 {
+  border: 2px solid black;
+  padding: 0.5rem;
+  position: relative;
+  text-align: right;
+  font-family: 'Courier New', monospace;
+  background-color: #222;
+  color: #0f0;
+  min-height: 50px;
+  animation: blink 2s infinite;
+  white-space: nowrap; /* Αποτρέπει την αλλαγή γραμμής */
+  overflow: hidden;    /* Κόβει τον περιττό χώρο */
+  text-overflow: ellipsis; /* Προσθέτει '...' αν είναι πολύ μεγάλος ο αριθμός */
+  
+}
+
+/* Αναβόσβημα οθόνης */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Κουμπιά αριθμομηχανής */
+.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.3rem;
+  margin-top: 2rem;
+}
+
+/* Κουμπιά */
+button {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  border: 2px solid #333;
+  border-radius: 50%;
+  background-color: rgb(31, 31, 31);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 3.5px rgba(200, 210, 200, 0.3);
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+/* Footer στο κάτω μέρος */
+footer {
+
+  
+  text-align: center;
+  padding-top: 15px;
+  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+  background-color: #000000;
+  font-size: 0.9rem;
+  color: #888888;
+}
