@@ -40,13 +40,16 @@ const Buttons = ({ onButtonClick }) => {
       <h1>{input || '0'}</h1> {/* Εδώ επιστρέφουμε απλώς το input χωρίς το format */}
       <div className='buttons-container'>
         {buttonValues.map((val, index) => (
-          <button
-            key={index}
-            onClick={() => handleButtonClick(val)}
-            style={val === '=' ? { backgroundColor: 'yellow' } : {}}
-          >
-            <span>{val}</span>
-          </button>
+            <button
+         key={index}
+         onClick={() => handleButtonClick(val)}
+         style={{
+           backgroundColor: val === '=' ? 'yellow' : '', // Κίτρινο για το "="
+           color: ['AC', '⇚', '%', '/', '+', '-', '*'].includes(val) ? '#0f0' : '', // Πράσινο χρώμα (color: #0f0) για συγκεκριμένα κουμπιά
+         }}
+       >
+         <span>{val}</span>
+       </button>
         ))}
       </div>
     </div>
