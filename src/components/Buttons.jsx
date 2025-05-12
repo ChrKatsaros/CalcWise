@@ -5,6 +5,10 @@ const Buttons = ({ onButtonClick }) => {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false); // Αν υπάρχει σφάλμα
 
+  const formatNumber = (val) =>
+  Number(val).toLocaleString('de-CH');
+
+
   const handleButtonClick = (value) => {
     console.log('Button clicked:', value);
 
@@ -37,7 +41,12 @@ const Buttons = ({ onButtonClick }) => {
 
   return ( 
     <div> 
-      <h1>{input || '0'}</h1> {/* Εδώ επιστρέφουμε απλώς το input χωρίς το format */}
+     <h1>
+        {input && !error && !isNaN(Number(input))
+         ? formatNumber(input)
+         : input || '0'}
+      </h1>
+ {/* Εδώ επιστρέφουμε απλώς το input χωρίς το format */}
       <div className='buttons-container'>
         {buttonValues.map((val, index) => (
             <button
