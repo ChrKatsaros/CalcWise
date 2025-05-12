@@ -42,10 +42,11 @@ const Buttons = ({ onButtonClick }) => {
   return ( 
     <div> 
      <h1>
-        {input && !error && !isNaN(Number(input))
-         ? formatNumber(input)
-         : input || '0'}
-      </h1>
+       {!error && !isNaN(input) && input !== ''
+        ? formatNumber(input)
+        : input || '0'}
+     </h1>
+
  {/* Εδώ επιστρέφουμε απλώς το input χωρίς το format */}
       <div className='buttons-container'>
         {buttonValues.map((val, index) => (
