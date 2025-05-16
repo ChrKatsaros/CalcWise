@@ -83,7 +83,7 @@ const Buttons = ({ onButtonClick }) => {
       <h1>
         {input && !error
           ? formatInput(input)   // εμφάνιση με απόστροφο
-          : input || '0'}        // ή 0 αν είναι κενό
+          : input || '0'}       
       </h1>
       <div className='buttons-container'>
         {buttonValues.map((val, index) => (
