@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/CalcWise/', // Αυτό είναι το όνομα του repository σου στο GitHub
+  base: './', 
 })
