@@ -1,34 +1,38 @@
-
+/* Βασικό layout - πλήρες ύψος για σωστό sticky footer */
 html, body, #root {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  width: 100%;
+ 
 }
 
-
+/* Κεντρικό περιτύλιγμα σελίδας */
 .page-wrapper {
-  min-height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-}
-
-
-.main-wrapper {
-
-  display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 2rem;
-  padding-top: 3rem;
+  align-items: center;
+  height: 100vh; 
   background-color: #000000;
   background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+  flex-direction: row;
+  
 }
 
+/* Κεντρικό περιεχόμενο. */
 
+.logoTextAndLogo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+/* Κείμενο δίπλα από το logo */
 .logo-text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2rem;
+  font-size: 1.7rem;
   color: rgb(72, 255, 0);
   letter-spacing: 1px;
   margin: 0;
@@ -52,9 +56,10 @@ html, body, #root {
   position: relative;
   display: inline-block;
   cursor: pointer;
+  
 }
 
-
+/* Αρχικά: καμία underline */
 .smart::after,
 .simple::after {
   content: ""; /*δημιουργεί ένα εικονικό στοιχείο (ένα “κουτάκι”) μετά από το περιεχόμενο του .simple, που μπορείς να το διαμορφώσεις με position, width, background-color, κ.λπ. */
@@ -67,7 +72,7 @@ html, body, #root {
   transition: width 0.6s ease;
 }
 
-
+/* Όταν κάνεις hover: η γραμμή μεγαλώνει */
 .smart:hover::after,
 .simple:hover::after {
   width: 100%;
@@ -77,7 +82,7 @@ html, body, #root {
 
 
 
-
+/* Λογότυπο */
 .logo {
   height: 150px;
   width: 150px;
@@ -95,6 +100,8 @@ html, body, #root {
   box-sizing: border-box;
   background-color: #1b1b1b;
   box-shadow: 0 8px 20px rgba(200, 210, 200, 0.3);
+  margin-left: 2rem;
+ 
 }
 
 /* Calculator display */
@@ -106,7 +113,7 @@ html, body, #root {
   font-family: 'Courier New', monospace;
   background-color: #222;
   color: #0f0;
-  min-height: 50px;
+ 
   animation: blink 2s infinite;
   white-space: nowrap; /* Αποτρέπει την αλλαγή γραμμής */
   overflow: hidden;    /* Κόβει τον περιττό χώρο */
@@ -129,7 +136,7 @@ html, body, #root {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.3rem;
-  margin-top: 2rem;
+  
 }
 
 /* Κουμπιά */
@@ -150,14 +157,96 @@ button:hover {
   background-color: #ddd;
 }
 
-
+/* Footer στο κάτω μέρος */
 footer {
-
-  
+ display: flex;
   text-align: center;
-  padding-top: 15px;
+  justify-content: center;
+  
   background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
   background-color: #000000;
   font-size: 0.9rem;
   color: #888888;
+}
+
+
+footer p{
+  position: fixed;
+  bottom: 0;
+}
+
+/*Responsive CSS For Mobiles */
+
+
+@media (max-width: 768px) {
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .logoTextAndLogo {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .logo {
+    height: 40px;
+    width: 40px;
+    
+  }
+
+  .logo-text {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .calculator-body {
+    width: 240px;
+    height: auto;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+    
+    border-radius: 10px;
+  }
+
+  .calculator-body h1 {
+    font-size: 1rem;
+    padding: 0.3rem;
+  }
+
+  .buttons-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+  }
+
+  button {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+    padding: 0;
+    border-radius: 50%;
+  }
+  footer{
+    display: flex;
+  text-align: center;
+  justify-content: center;
+  
+  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+  background-color: #000000;
+  font-size: 0.9rem;
+  color: #888888;
+  }
+
+  footer p{
+  position: fixed;
+  bottom: 0;
+  margin-top: 2rem;
+}
+
+
 }
