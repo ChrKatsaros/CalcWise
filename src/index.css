@@ -153,6 +153,16 @@ button {
   box-shadow: 0 2px 3.5px rgba(200, 210, 200, 0.3);
 }
 
+.yellow{
+  color: white;
+  font-size: 30px;
+  background-color: yellow;
+}
+
+.green{
+ color: #0f0;
+}
+
 button:hover {
   background-color: #ddd;
 }
