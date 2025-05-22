@@ -54,6 +54,13 @@ function Buttons() {
             key={index}
             value={btn}
             onClick={handleClick}
+            className={
+              btn==="=" ?
+              "yellow"
+             : (operators.includes(btn) || btn === "AC" || btn === "⇚")
+             ? "green"
+             : " "
+            }
           >
             {btn}
           </button>
