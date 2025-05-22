@@ -1,106 +1,66 @@
 import React, { useState } from 'react';
 import buttonValues from '../buttonvalues';
 
-const Buttons = ({ onButtonClick }) => {
-  const [input, setInput] = useState('');        // κρατάει την είσοδο του χρήστη
-  const [error, setError] = useState(false);     // true αν υπάρχει κάποιο σφάλμα
+function Buttons() {
+  const [value, setValue] = useState("");
+  const operators = ["+", "-", "*", "/", "%", "."];
 
-  const operators = ['+', '-', '*', '/', '%'];   // επιτρεπόμενοι τελεστές
+  function handleClick(event) {
+    const whichButtonIsClicked = event.target.value;
 
-  const formatNumber = (val) => Number(val).toLocaleString('de-CH');  // μορφοποίηση με απόστροφο
+    if (whichButtonIsClicked === "AC") {
+      setValue(""); // Καθαρισμός
+    } else if (whichButtonIsClicked === "⇚") {
+      setValue(prev => prev.slice(0, -1)); // Διαγραφή τελευταίου χαρακτήρα
+    } else if (whichButtonIsClicked === "=") {
+      setValue(prev => {
+        try {
+          const result = eval(prev);
+          return Number(result).toLocaleString("el-GR")
+        } catch {
+          return "🤷‍♀️";
+        }
+      });
+    } else if (operators.includes(whichButtonIsClicked)) {
+      setValue(prev => {
+        const lastChar = prev.slice(-1);
+        
 
-  const formatInput = (input) => {
-    const parts = input.split(/([+\-*/%])/);      // χωρίζει αριθμούς και τελεστές
-    const formatted = parts.map(part =>
-      /^[0-9.]+$/.test(part)                      // αν είναι αριθμός
-        ? Number(part).toLocaleString('de-CH')    // βάλε απόστροφο
-        : part                                    // αλλιώς άστο ως έχει
-    );
-    return formatted.join('');                   // ένωση όλων σε string
-  };
-
-  const handleButtonClick = (value) => {
-    console.log('Button clicked:', value);
-
-    if (value === 'AC') {
-      setInput('');       // καθαρισμός εισόδου
-      setError(false);    // καθαρισμός σφάλματος
-    } else if (value === '=') {
-      try {
-        const trimmedInput = input.trim();   // αφαιρεί κενά
-
-        if (
-          operators.includes(trimmedInput[0]) && trimmedInput[0] !== '-'
-        ) {
-          setInput('🤷');   // σφάλμα: ξεκινάει με τελεστή
-          setError(true);
-          return;
+        // Αν το τελευταίο είναι τελεστής
+        if (operators.includes(lastChar)) {
+          // Επιτρέπουμε μόνο περίπτωση π.χ. 7 + -5
+          if (whichButtonIsClicked === "-" && !["-", "+"].includes(lastChar)) {
+            return prev + whichButtonIsClicked;
+          }
+          // Διαφορετικά μπλοκάρουμε
+          return prev;
         }
 
-        const result = eval(input);                          // υπολογισμός με eval
-        const rounded = Number.isInteger(result)
-          ? result
-          : result.toFixed(3);                               // στρογγυλοποίηση αν δεκαδικός
-        setInput(rounded.toString());                        // εμφάνιση αποτελέσματος
-        setError(false);
-      } catch {
-        setInput('🤷');   // σφάλμα κατά τον υπολογισμό
-        setError(true);
-      }
-    } else if (value === '⇚') {
-      setInput(prevInput => prevInput.slice(0, -1));  // backspace
+        // Προσθήκη τελεστή (αν όλα εντάξει)
+        return prev + whichButtonIsClicked;
+      });
     } else {
-      if (error) {
-        setInput(value);     // επανεκκίνηση μετά από σφάλμα
-        setError(false);
-      } else {
-        setInput(prevInput => {
-          const lastChar = prevInput.slice(-1);    // τελευταίος χαρακτήρας
-
-          if (
-            operators.includes(lastChar) &&
-            operators.includes(value)
-          ) {
-            if (
-              value === '-' &&
-              ['*', '/', '+'].includes(lastChar)
-            ) {
-              return prevInput + value;     // επιτρέπεται το 7*-7
-            }
-            return prevInput;               // μπλοκ διπλών τελεστών
-          }
-
-          return prevInput + value;         // προσθήκη κανονικού χαρακτήρα
-        });
-      }
+      // Αν δεν είναι τελεστής, απλά πρόσθεσέ το
+      setValue(prev => prev + whichButtonIsClicked);
     }
-
-    onButtonClick(value);  // ενημέρωση γονέα (αν χρειάζεται)
-  };
+  }
 
   return (
     <div>
-      <h1>
-        {input && !error
-          ? formatInput(input)   // εμφάνιση με απόστροφο
-          : input || '0'}       
-      </h1>
-      <div className='buttons-container'>
-        {buttonValues.map((val, index) => (
+      <h1>{value || "0"}</h1>
+      <div className="buttons-container">
+        {buttonValues.map((btn, index) => (
           <button
             key={index}
-            onClick={() => handleButtonClick(val)}  // πατάμε το κουμπί
-            style={{
-              backgroundColor: val === '=' ? 'yellow' : '',  // τονίζουμε το =
-              color: ['AC', '⇚', '%', '/', '+', '-', '*'].includes(val) ? '#0f0' : '',  // πράσινα τα ειδικά
-            }}
+            value={btn}
+            onClick={handleClick}
           >
-            <span>{val}</span>
+            {btn}
           </button>
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default Buttons;
